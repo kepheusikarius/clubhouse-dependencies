@@ -9,8 +9,7 @@ app.set('view engine', 'ejs');
 
 const cytoscapeConfig = {
   layout: {
-    name: 'grid',
-    rows: 1
+    name: 'dagre',
   },
   style: [ // the stylesheet for the graph
     {
