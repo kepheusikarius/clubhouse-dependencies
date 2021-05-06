@@ -3,14 +3,13 @@ require("dotenv").config();
 const cytoscape = require('cytoscape');
 const { getClubhouseEpic } = require('./controllers/clubhouse-controller');
 const app = express();
-const port = 8080;
 
 app.get('/', (req, res) => {
   res.send(indexRouter())
 });
 
-app.listen(port, () => {
-  console.log(`App listening on port ${port}!`)
+app.listen(process.env.SERVER_PORT, () => {
+  console.log(`App listening on port ${process.env.SERVER_PORT}!`)
 });
 
 function indexRouter(){
