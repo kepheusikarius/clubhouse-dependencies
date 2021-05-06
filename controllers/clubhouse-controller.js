@@ -1,15 +1,23 @@
 const axios = require('axios').default;
 
-export async function getClubhouseEpic() {
+async function getClubhouseEpic() {
     const apiKey = process.env.CLUBHOUSE_API_KEY;
-    return 'epic dude'
+    const clubhouseUrl = process.env.CLUBHOUSE_URL;
+
+    res = await axios.get(`${clubhouseUrl}/epics`, {
+        headers: {
+            "Clubhouse-Token": apiKey
+        }
+    });
+    console.log(res);
+    return res;
 }
 
-export function getClubhouseStories() {
+function getClubhouseStories() {
     return 'what a story!'
 }
 
-export default {
+module.exports = {
     getClubhouseEpic,
-    getClubhouseStories
+    getClubhouseStories,
 }
