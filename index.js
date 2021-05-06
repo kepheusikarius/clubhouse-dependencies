@@ -1,12 +1,16 @@
-const http = require("http");
+const express = require('express');
 require("dotenv").config();
+const app = express();
+const port = 8080;
 
-const server = http.createServer((req, res) => {
-   res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  res.end('Hello World\n');
+app.get('/', (req, res) => {
+  res.send(indexRouter())
 });
 
-server.listen(process.env.SERVER_PORT, process.env.SERVER_HOSTNAME, () => {
-  console.log(`Server running at http://${process.env.SERVER_HOSTNAME}:${process.env.SERVER_PORT}/`);
+app.listen(port, () => {
+  console.log(`App listening on port ${port}!`)
 });
+
+function indexRouter(){
+  return 'Hello World!';
+}
