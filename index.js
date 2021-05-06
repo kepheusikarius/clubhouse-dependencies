@@ -15,8 +15,8 @@ const cytoscapeConfig = {
     {
       selector: 'node',
       style: {
-        'background-color': '#F00',
-        'label': 'data(id)'
+        'background-color': '#063970',
+        'label': 'data(name)',
       }
     },
 
@@ -24,8 +24,8 @@ const cytoscapeConfig = {
       selector: 'edge',
       style: {
         'width': 3,
-        'line-color': '#ccc',
-        'target-arrow-color': '#ccc',
+        'line-color': '#76b5c5',
+        'target-arrow-color': '#76b5c5',
         'target-arrow-shape': 'triangle',
         'curve-style': 'bezier'
       }

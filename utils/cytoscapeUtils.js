@@ -8,6 +8,8 @@ function convertStoriesToCytoscapeNodesAndEdges(stories) {
     nodes.push({
       data: {
         id: story.id,
+        name: story.name,
+        href: story.app_url,
       }
     });
           
