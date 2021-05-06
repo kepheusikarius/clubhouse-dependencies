@@ -15,5 +15,10 @@
     const config = <%- JSON.stringify(cytoscapeConfig)%>;
     config.container = document.getElementById('cy');
     var cy = cytoscape(config);
+
+    cy.on('tap', 'node', function(evt) {
+      const node = evt.target;
+      window.open(node.data().href);
+    })
   </script>
 </html>

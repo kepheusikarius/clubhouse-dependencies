@@ -32,7 +32,7 @@ const cytoscapeConfig = {
         'target-arrow-shape': 'triangle',
         'curve-style': 'bezier'
       }
-    }
+    },
   ],
 };
 
