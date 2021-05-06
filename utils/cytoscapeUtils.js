@@ -5,12 +5,20 @@ function convertStoriesToCytoscapeNodesAndEdges(stories) {
   const edges = [];
   
   stories.forEach(story => {
+    let colour = '#e3cbb6'
+    if(story.completed){
+      colour = 'green';
+    }
+
     nodes.push({
       data: {
         id: story.id,
         name: story.name,
         href: story.app_url,
-      }
+      },
+      style: {
+        backgroundColor: colour,
+      },
     });
           
     if(story.blocked) {
