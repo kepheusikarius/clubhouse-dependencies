@@ -17,6 +17,9 @@ const cytoscapeConfig = {
       style: {
         'background-color': '#063970',
         'label': 'data(name)',
+        'text-wrap': 'wrap',
+        'text-max-width': 80,
+        'font-size': 10
       }
     },
 
