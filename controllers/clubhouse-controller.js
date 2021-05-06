@@ -1,9 +1,9 @@
 export function getClubhouseEpic() {
-
+    return 'epic dude'
 }
 
 export function getClubhouseStories() {
-
+    return 'what a story!'
 }
 
 export default {
