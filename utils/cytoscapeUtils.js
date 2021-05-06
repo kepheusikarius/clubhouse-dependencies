@@ -14,7 +14,7 @@ function convertStoriesToCytoscapeNodesAndEdges(stories) {
       data: {
         id: story.id,
         name: story.name,
-        href: story.app_url,
+        link: story.app_url,
       },
       style: {
         backgroundColor: colour,

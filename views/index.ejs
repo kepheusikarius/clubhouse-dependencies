@@ -18,7 +18,15 @@
 
     cy.on('tap', 'node', function(evt) {
       const node = evt.target;
-      window.open(node.data().href);
+      window.open(node.data('link'));
+    });
+
+    cy.on('mouseover', 'node', function(evt) {
+      document.body.style.cursor = 'pointer';
+    });
+
+    cy.on('mouseout', 'node', function(evt) {
+      document.body.style.cursor = 'default';
     })
   </script>
 </html>
