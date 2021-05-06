@@ -1,32 +1,11 @@
 const axios = require('axios').default;
+const { convertStoriesToCytoscapeNodesAndEdges } = require('../utils/cytoscapeUtils');
 
-function convertStoriesToCytoscapeNodesAndEdges(stories) {
-  console.log(stories);
-  const nodes = [];
-  const edges = [];
+async function getStoryDependenciesData(epicId) {
+  const stories = await getClubhouseEpicStories(epicId);
+  const cytoscapeData = convertStoriesToCytoscapeNodesAndEdges(stories);
 
-  stories.forEach(story => {
-    nodes.push({
-      id: story.id,
-    })
-        
-    if(story.blocked) {
-      story.story_links.forEach(link => {
-        if (link.verb === 'blocks' && link.type === 'object') {
-          edges.push({
-            id: `${link.subject_id}-${story.id}`,
-            source: link.subject_id,
-            target: story.id,
-          })
-        }
-      })
-    }
-  });
-  
-  return {
-    nodes,
-    edges,
-  }
+  return cytoscapeData;
 }
 
 async function getClubhouseEpicStories(epicId) {
@@ -38,10 +17,10 @@ async function getClubhouseEpicStories(epicId) {
       "Clubhouse-Token": apiKey
     }
   });
-  const nodesAndEdges = convertStoriesToCytoscapeNodesAndEdges(res.data);
-  return nodesAndEdges;
+
+  return res.data;
 }
 
 module.exports = {
-  getClubhouseEpicStories,
+  getStoryDependenciesData,
 }
