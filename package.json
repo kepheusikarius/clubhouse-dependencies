@@ -1,0 +1,20 @@
+{
+  "name": "clubhouse-dependencies",
+  "version": "1.0.0",
+  "description": "App for creating dependency visualizations for Clubhouse epics",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ConorMcLaughlin/clubhouse-dependencies.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ConorMcLaughlin/clubhouse-dependencies/issues"
+  },
+  "homepage": "https://github.com/ConorMcLaughlin/clubhouse-dependencies#readme"
+}
