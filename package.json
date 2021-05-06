@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/ConorMcLaughlin/clubhouse-dependencies#readme",
   "dependencies": {
+    "axios": "^0.21.1",
     "dotenv": "^9.0.0"
   }
 }

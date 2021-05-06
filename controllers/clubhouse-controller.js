@@ -1,4 +1,7 @@
-export function getClubhouseEpic() {
+const axios = require('axios').default;
+
+export async function getClubhouseEpic() {
+    const apiKey = process.env.CLUBHOUSE_API_KEY;
     return 'epic dude'
 }
 
