@@ -37,6 +37,7 @@
       <p id="description"></p>
       <p id="tracker"></p>
     </div>
+    <button onclick="resetZoom()">Reset Zoom</button>
     <div class="left" id="diagram"></div>
   </body>
   <script>
@@ -64,5 +65,12 @@
     document.getElementById('tracker').innerHTML = 'Amount complete: '
             + parseFloat((config.epicData.stats.num_stories_done/config.epicData.stats.num_stories_total) * 100).toFixed(2)
             + '%';
+
+    function resetZoom() {
+      console.log('zoom');
+      cy.reset();
+      cy.zoom(1.5);
+      cy.pan({x: 50, y: 100});
+    }
   </script>
 </html>
