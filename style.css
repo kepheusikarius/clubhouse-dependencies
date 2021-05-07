@@ -1,5 +1,56 @@
-#diagram {
+.left{
+  float: left;
+}
+
+.legend{
+  width: 20%;
+}
+
+.ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
   width: 100%;
+}
+
+.circle{
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background-color: green;
+  float: left;
+  margin-left: 0.5em;
+}
+
+.option{
+  float: left;
+  width: 10vw;
+}
+
+.green{
+  background-color: green;
+}
+
+.red{
+  background-color: red;
+}
+
+.blue{
+  background-color: blue;
+}
+
+.darkblue{
+  background-color: #063970;
+}
+
+#diagram {
+  width: 80%;
   height: 100vh;
   display: block;
 }

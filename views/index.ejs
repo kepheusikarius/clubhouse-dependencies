@@ -9,7 +9,28 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dagre/0.8.5/dagre.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/cytoscape-dagre@2.2.2/cytoscape-dagre.min.js"></script>
   <body>
-    <div id="diagram"></div>
+    <div class="left legend">
+      <h2>Legend</h2>
+      <ul class="legend">
+        <li class="list">
+          <p class="option">Backlog/Ready</p>
+          <div class="circle darkblue"/>
+        </li>
+        <li class="list">
+          <p class="option">Blocked</p>
+          <div class="circle red"/>
+        </li>
+        <li class="list">
+          <p class="option">In Progress</p>
+          <div class="circle blue"/>
+        </li>
+        <li class="list">
+          <p class="option">Done</p>
+          <div class="circle green"/>
+        </li>
+      </ul>
+    </div>
+    <div class="left" id="diagram"></div>
   </body>
   <script>
     const config = <%- JSON.stringify(cytoscapeConfig)%>;

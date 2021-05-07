@@ -5,9 +5,14 @@ function convertStoriesToCytoscapeNodesAndEdges(stories) {
   const edges = [];
   
   stories.forEach(story => {
-    let colour = '#063970'
-    if(story.completed){
+    let colour = '#063970';
+
+    if(story.completed) {
       colour = 'green';
+    }else if(story.blocker) {
+      colour = 'red';
+    }else if(story.started) {
+      colour = 'blue';
     }
 
     nodes.push({
