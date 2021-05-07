@@ -56,6 +56,18 @@ app.get('/epics/:epicId', async (req, res) => {
   });
 });
 
+app.get('/epics/:epicId/swimlanes', async (req, res) => {
+  const epicId = req.params.epicId;
+
+  const config = {
+    something: 'something!',
+  }
+
+  res.render('swimlanes', {
+    swimlanesConfig: config
+  })
+})
+
 app.listen(process.env.SERVER_PORT, () => {
   console.log(`App listening on port ${process.env.SERVER_PORT}!`)
 });
