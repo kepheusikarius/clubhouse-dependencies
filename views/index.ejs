@@ -30,12 +30,17 @@
         </li>
       </ul>
     </div>
+    <div id="details">
+      <h1 id="title"></h1>
+      <p id="description"></p>
+      <p id="tracker"></p>
+    </div>
     <div class="left" id="diagram"></div>
   </body>
   <script>
     const config = <%- JSON.stringify(cytoscapeConfig)%>;
-    config.container = document.getElementById('diagram');
-    var cy = cytoscape(config);
+    config.cytoscapeData.container = document.getElementById('diagram');
+    var cy = cytoscape(config.cytoscapeData);
 
     cy.on('tap', 'node', function(evt) {
       const node = evt.target;
@@ -44,10 +49,18 @@
 
     cy.on('mouseover', 'node', function(evt) {
       document.body.style.cursor = 'pointer';
+      this.shift({x: 0, y: -1 });
     });
 
     cy.on('mouseout', 'node', function(evt) {
       document.body.style.cursor = 'default';
+      this.shift({x: 0, y: 1 });
     })
+
+    document.getElementById('title').innerHTML = config.epicData.name;
+    document.getElementById('description').innerHTML = config.epicData.description;
+    document.getElementById('tracker').innerHTML = 'Amount complete: '
+            + parseFloat((config.epicData.stats.num_stories_done/config.epicData.stats.num_stories_total) * 100).toFixed(2)
+            + '%'
   </script>
 </html>

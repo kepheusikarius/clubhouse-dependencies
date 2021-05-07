@@ -1,6 +1,7 @@
 const express = require('express');
-require("dotenv").config();
+const {getClubhouseEpicData} = require("./controllers/clubhouse-controller");
 const { getStoryDependenciesData } = require('./controllers/clubhouse-controller');
+require("dotenv").config();
 const app = express();
 
 app.use(express.static(__dirname));
@@ -45,12 +46,16 @@ app.get('/', (req, res) => {
 app.get('/epics/:epicId', async (req, res) => {
   const epicId = req.params.epicId;
   const cytoscapeData = await getStoryDependenciesData(epicId);
+  const epicData = await getClubhouseEpicData(epicId);
 
   const config = {
-    elements: cytoscapeData,
-    ...cytoscapeConfig,
+    cytoscapeData:{
+      elements: cytoscapeData,
+      ...cytoscapeConfig,
+    },
+    epicData: epicData,
   }
-  
+
   res.render('index', {
     cytoscapeConfig: config,
   });

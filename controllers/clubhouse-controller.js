@@ -21,6 +21,24 @@ async function getClubhouseEpicStories(epicId) {
   return res.data;
 }
 
+
+async function getClubhouseEpicData(epicId){
+  const apiKey = process.env.CLUBHOUSE_API_KEY;
+  const clubhouseUrl = process.env.CLUBHOUSE_URL;
+
+  res = await axios.get(`${clubhouseUrl}/epics/${epicId}`, {
+    headers: {
+      "Clubhouse-Token": apiKey
+    },
+    description: {
+      includes_description: true,
+    },
+  });
+
+  return res.data;
+}
+
 module.exports = {
   getStoryDependenciesData,
+  getClubhouseEpicData,
 }
