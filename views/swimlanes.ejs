@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Index page</title></head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gojs/2.1.21/go-debug.js"></script>
+    <link rel="stylesheet" href="/style.css">
+  <body>
+    <div id="diagram"></div>
+  </body>
+  <script>
+    const config = <%- JSON.stringify(swimlanesConfig)%>;
+    var $ = go.GraphObject.make;
+    var myDiagram = $(go.Diagram, "diagram");
+  </script>
+</html>
