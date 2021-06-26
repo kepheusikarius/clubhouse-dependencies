@@ -1,5 +1,13 @@
-.left{
-  float: left;
+body {
+  display: flex;
+}
+
+.leftColumn {
+  flex: 20%;
+}
+
+.rightColumn {
+  flex: 80%;
 }
 
 .legend{
@@ -53,9 +61,8 @@
   background-color: purple;
 }
 
-#diagram {
-  width: 79%;
-  height: 100vh;
+.diagram {
+  height: 80vh;
   display: block;
   border: 1px black solid;
 }

@@ -27,7 +27,7 @@ const cytoscapeConfig = {
     {
       selector: 'edge',
       style: {
-        'width': 3,
+        'width': 2,
         'line-color': '#76b5c5',
         'target-arrow-color': '#76b5c5',
         'target-arrow-shape': 'triangle',

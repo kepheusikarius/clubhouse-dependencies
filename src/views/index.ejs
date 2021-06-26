@@ -9,7 +9,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dagre/0.8.5/dagre.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/cytoscape-dagre@2.2.2/cytoscape-dagre.min.js"></script>
   <body>
-    <div class="left legend">
+    <div class="leftColumn legend">
       <h2>Legend</h2>
       <ul class="legend">
         <li class="list">
@@ -34,15 +34,17 @@
         </li>
       </ul>
     </div>
-    <div id="details">
-      <h1 id="title"></h1>
-      <p id="description"></p>
-      <p id="tracker"></p>
+    <div class="rightColumn">
+      <div id="details">
+        <h1 id="title"></h1>
+        <p id="description"></p>
+        <p id="tracker"></p>
+      </div>
+      <button onclick="resetZoom()">Reset Zoom</button>
+      <label><input type="checkbox" checked onclick="toggleShowDone(this)"></input>Show Done</label>
+      <label><input type="checkbox" checked onclick="toggleShowUserStories(this)"></input>Show User Stories</label>
+      <div class="diagram" id="diagram"></div>
     </div>
-    <button onclick="resetZoom()">Reset Zoom</button>
-    <label><input type="checkbox" checked onclick="toggleShowDone(this)"></input>Show Done</label>
-    <label><input type="checkbox" checked onclick="toggleShowUserStories(this)"></input>Show User Stories</label>
-    <div class="left" id="diagram"></div>
   </body>
   <script>
     const config = <%- JSON.stringify(cytoscapeConfig)%>;
@@ -84,6 +86,7 @@
       }
 
       cy.layout({name: 'dagre'}).run();
+      resetZoom();
     }
 
     function toggleShowUserStories(e) {
@@ -94,6 +97,7 @@
       }
 
       cy.layout({name: 'dagre'}).run();
+      resetZoom();
     }
   </script>
 </html>
