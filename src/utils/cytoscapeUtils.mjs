@@ -27,13 +27,18 @@ export function convertStoriesToCytoscapeNodesAndEdges(stories) {
 
 function _makeNode(story) {
   let colour = '#063970';
+  let state = 'ready';
 
-  if(story.completed) {
+  if (story.completed) {
     colour = 'green';
-  } else if(story.blocker) {
-    colour = 'red';
-  } else if(story.started) {
+    state = 'done';
+  } else if (story.started) {
     colour = 'blue';
+    state = 'started';
+  } else if (story.blocker) {
+    colour = 'red';
+  } else if (story.project_id === 36662) {
+    colour = 'purple';
   }
 
   return {
@@ -41,6 +46,8 @@ function _makeNode(story) {
       id: story.id,
       name: story.name,
       link: story.app_url,
+      state,
+      type: story.project_id === 36662 ? 'user_story' : story.story_type,
     },
     style: {
       backgroundColor: colour,
