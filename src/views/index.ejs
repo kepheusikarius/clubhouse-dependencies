@@ -40,12 +40,16 @@
       <p id="tracker"></p>
     </div>
     <button onclick="resetZoom()">Reset Zoom</button>
+    <label><input type="checkbox" checked onclick="toggleShowDone(this)"></input>Show Done</label>
+    <label><input type="checkbox" checked onclick="toggleShowUserStories(this)"></input>Show User Stories</label>
     <div class="left" id="diagram"></div>
   </body>
   <script>
     const config = <%- JSON.stringify(cytoscapeConfig)%>;
     config.cytoscapeData.container = document.getElementById('diagram');
-    var cy = cytoscape(config.cytoscapeData);
+    let cy = cytoscape(config.cytoscapeData);
+    let removedDoneElements = cy.collection();
+    let removedUserStories = cy.collection();
 
     cy.on('tap', 'node', function(evt) {
       const node = evt.target;
@@ -69,10 +73,27 @@
             + '%';
 
     function resetZoom() {
-      console.log('zoom');
-      cy.reset();
-      cy.zoom(1.5);
-      cy.pan({x: 50, y: 100});
+      cy.fit([], 30);
+    }
+
+    function toggleShowDone(e) {
+      if (e.checked) {
+        removedDoneElements.restore();
+      } else {
+        removedDoneElements = cy.filter(ele => ele.isNode() && ele.data().state === 'done').remove();
+      }
+
+      cy.layout({name: 'dagre'}).run();
+    }
+
+    function toggleShowUserStories(e) {
+      if (e.checked) {
+        removedUserStories.restore();
+      } else {
+        removedUserStories = cy.filter(ele => ele.isNode() && ele.data().type === 'user_story').remove();
+      }
+
+      cy.layout({name: 'dagre'}).run();
     }
   </script>
 </html>
