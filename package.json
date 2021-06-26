@@ -2,23 +2,12 @@
   "name": "clubhouse-dependencies",
   "version": "1.0.0",
   "description": "App for creating dependency visualizations for Clubhouse epics",
-  "main": "index.js",
+  "main": "src/index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint '**/*.js' --fix --ignore-pattern node_modules/",
-    "serve": "nodemon --ext '*' index.js"
+    "lint": "eslint 'src/**/*.js' --fix --ignore-pattern node_modules/",
+    "start": "nodemon --watch . --watch src src/index.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ConorMcLaughlin/clubhouse-dependencies.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/ConorMcLaughlin/clubhouse-dependencies/issues"
-  },
-  "homepage": "https://github.com/ConorMcLaughlin/clubhouse-dependencies#readme",
   "dependencies": {
     "axios": "^0.21.1",
     "cytoscape": "^3.18.2",
@@ -27,7 +16,8 @@
     "ejs": "^3.1.6",
     "express": "^4.17.1",
     "gojs": "^2.1.39",
-    "nodemon": "^2.0.7"
+    "nodemon": "^2.0.7",
+    "npm-run-all": "^4.1.5"
   },
   "devDependencies": {
     "eslint": "^7.25.0"

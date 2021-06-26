@@ -1,12 +1,12 @@
-const express = require('express');
-const {getClubhouseEpicData} = require("./controllers/clubhouse-controller");
-const { getStoryDependenciesData } = require('./controllers/clubhouse-controller');
-require("dotenv").config();
+import express from 'express';
+import { config } from './config.mjs';
+import { getClubhouseEpicData } from "./controllers/clubhouse-controller.mjs";
+import { getStoryDependenciesData } from './controllers/clubhouse-controller.mjs';
 const app = express();
 
-app.use(express.static(__dirname));
-
 app.set('view engine', 'ejs');
+app.set('views', 'src/views');
+app.use(express.static('src/static'));
 
 const cytoscapeConfig = {
   layout: {
@@ -61,18 +61,8 @@ app.get('/epics/:epicId', async (req, res) => {
   });
 });
 
-app.get('/epics/:epicId/swimlanes', async (req, res) => {
-  const epicId = req.params.epicId;
-
-  const config = {
-    something: 'something!',
-  }
-
-  res.render('swimlanes', {
-    swimlanesConfig: config
-  })
-})
-
-app.listen(process.env.SERVER_PORT, () => {
-  console.log(`App listening on port ${process.env.SERVER_PORT}!`)
-});
+export function start() {
+    app.listen(config.port, () => {
+        console.log(`App listening on port ${config.port}!`)
+    });
+}
