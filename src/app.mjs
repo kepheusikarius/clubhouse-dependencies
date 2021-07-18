@@ -4,18 +4,18 @@ import { getClubhouseEpicData } from "./controllers/clubhouse-controller.mjs";
 import { getStoryDependenciesData } from './controllers/clubhouse-controller.mjs';
 const app = express();
 
-app.set('view engine', 'ejs');
+app.set('view engine', 'hbs');
 app.set('views', 'src/views');
 app.use(express.static('src/static'));
 
+const cytoscapeConfig = {
+  cytoscapeData: {
+    ...config.graph,
+  }
+};
+
 app.get('/', (req, res) => {
-  res.render('index', {
-    cytoscapeConfig: {
-      cytoscapeData: {
-        ...config.graph,
-      }
-    },
-  });
+  res.render('index', { cytoscapeConfig: JSON.stringify(cytoscapeConfig), });
 });
 
 app.get('/epics/:epicId', async (req, res) => {
@@ -29,9 +29,9 @@ app.get('/epics/:epicId', async (req, res) => {
       ...config.graph,
     },
     epicData,
-  }
+  };
 
-  res.render('index', { cytoscapeConfig, });
+  res.render('index', { cytoscapeConfig: JSON.stringify(cytoscapeConfig), });
 });
 
 export function start() {

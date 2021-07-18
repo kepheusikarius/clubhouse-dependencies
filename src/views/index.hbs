@@ -52,7 +52,7 @@
   </div>
 </body>
 <script>
-  const config = <%- JSON.stringify(cytoscapeConfig)%>;
+  const config = {{{cytoscapeConfig}}};
   config.cytoscapeData.container = document.getElementById('diagram');
   let cy = cytoscape(config.cytoscapeData);
   let removedDoneElements = cy.collection();
