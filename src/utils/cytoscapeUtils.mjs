@@ -11,18 +11,17 @@ export function convertStoriesToCytoscapeNodesAndEdges(stories) {
         if (edge) {
           edgeMap.set(edge.data.id, edge);
         }
-      })
+      });
     }
   });
 
   const nodes = Array.from(nodeMap.values());
-  const edges = Array.from(edgeMap.values())
-    .filter(e => nodeMap.has(e.data.source) && nodeMap.has(e.data.target));
+  const edges = Array.from(edgeMap.values()).filter(e => nodeMap.has(e.data.source) && nodeMap.has(e.data.target));
 
   return {
     nodes,
     edges,
-  }
+  };
 }
 
 function _makeNode(story) {
@@ -68,6 +67,6 @@ function _makeEdge(story, link) {
       id: `${sourceId}-${targetId}`,
       source: sourceId,
       target: targetId,
-    }
+    },
   };
 }
