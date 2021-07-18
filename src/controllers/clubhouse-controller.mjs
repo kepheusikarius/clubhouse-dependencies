@@ -19,7 +19,7 @@ export async function getClubhouseEpicStories(epicId) {
   return res.data;
 }
 
-export async function getClubhouseEpicData(epicId){
+export async function getClubhouseEpicData(epicId) {
   let res = await axios.get(`${config.ch_url}/v3/epics/${epicId}`, {
     headers: {
       "Clubhouse-Token": config.ch_api_key

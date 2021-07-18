@@ -1,10 +1,10 @@
 export function convertStoriesToCytoscapeNodesAndEdges(stories) {
   const nodeMap = new Map();
   const edgeMap = new Map();
-  
+
   stories.forEach(story => {
     nodeMap.set(story.id, _makeNode(story));
-    
+
     if (story.blocked) {
       story.story_links.forEach(link => {
         const edge = _makeEdge(story, link);
@@ -17,7 +17,7 @@ export function convertStoriesToCytoscapeNodesAndEdges(stories) {
 
   const nodes = Array.from(nodeMap.values());
   const edges = Array.from(edgeMap.values())
-                     .filter(e => nodeMap.has(e.data.source) && nodeMap.has(e.data.target));
+    .filter(e => nodeMap.has(e.data.source) && nodeMap.has(e.data.target));
 
   return {
     nodes,

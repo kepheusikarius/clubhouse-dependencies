@@ -10,7 +10,7 @@ body {
   flex: 80%;
 }
 
-.legend{
+.legend {
   width: 20%;
 }
 
@@ -27,7 +27,7 @@ body {
   width: 100%;
 }
 
-.circle{
+.circle {
   width: 25px;
   height: 25px;
   border-radius: 50%;
@@ -36,24 +36,24 @@ body {
   margin-left: 0.5em;
 }
 
-.option{
+.option {
   float: left;
   width: 10vw;
 }
 
-.green{
+.green {
   background-color: green;
 }
 
-.red{
+.red {
   background-color: red;
 }
 
-.blue{
+.blue {
   background-color: blue;
 }
 
-.darkblue{
+.darkblue {
   background-color: #063970;
 }
 

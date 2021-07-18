@@ -1,109 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Index page</title></head>
-    <link rel="stylesheet" type="text/css" href="/style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.18.2/cytoscape.min.js" integrity="sha512-CBGCXtszkG5rYlQSTNUzk54/731Kz28WPk2uT1GCPCqgfVRJ2v514vzzf16HuGX9WVtE7JLqRuAERNAzFZ9Hpw==" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dagre/0.8.5/dagre.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/cytoscape-dagre@2.2.2/cytoscape-dagre.min.js"></script>
-  <body>
-    <div class="leftColumn legend">
-      <h2>Legend</h2>
-      <ul class="legend">
-        <li class="list">
-          <p class="option">User Story</p>
-          <div class="circle purple"/>
-        </li>
-        <li class="list">
-          <p class="option">Backlog/Ready</p>
-          <div class="circle darkblue"/>
-        </li>
-        <li class="list">
-          <p class="option">Blocked</p>
-          <div class="circle red"/>
-        </li>
-        <li class="list">
-          <p class="option">In Progress</p>
-          <div class="circle blue"/>
-        </li>
-        <li class="list">
-          <p class="option">Done</p>
-          <div class="circle green"/>
-        </li>
-      </ul>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Index page</title>
+</head>
+<link rel="stylesheet" type="text/css" href="/style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.18.2/cytoscape.min.js"
+  integrity="sha512-CBGCXtszkG5rYlQSTNUzk54/731Kz28WPk2uT1GCPCqgfVRJ2v514vzzf16HuGX9WVtE7JLqRuAERNAzFZ9Hpw=="
+  crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dagre/0.8.5/dagre.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/cytoscape-dagre@2.2.2/cytoscape-dagre.min.js"></script>
+
+<body>
+  <div class="leftColumn legend">
+    <h2>Legend</h2>
+    <ul class="legend">
+      <li class="list">
+        <p class="option">User Story</p>
+        <div class="circle purple" />
+      </li>
+      <li class="list">
+        <p class="option">Backlog/Ready</p>
+        <div class="circle darkblue" />
+      </li>
+      <li class="list">
+        <p class="option">Blocked</p>
+        <div class="circle red" />
+      </li>
+      <li class="list">
+        <p class="option">In Progress</p>
+        <div class="circle blue" />
+      </li>
+      <li class="list">
+        <p class="option">Done</p>
+        <div class="circle green" />
+      </li>
+    </ul>
+  </div>
+  <div class="rightColumn">
+    <div id="details">
+      <h1 id="title"></h1>
+      <p id="description"></p>
+      <p id="tracker"></p>
     </div>
-    <div class="rightColumn">
-      <div id="details">
-        <h1 id="title"></h1>
-        <p id="description"></p>
-        <p id="tracker"></p>
-      </div>
-      <button onclick="resetZoom()">Reset Zoom</button>
-      <label><input type="checkbox" checked onclick="toggleShowDone(this)"></input>Show Done</label>
-      <label><input type="checkbox" checked onclick="toggleShowUserStories(this)"></input>Show User Stories</label>
-      <div class="diagram" id="diagram"></div>
-    </div>
-  </body>
-  <script>
-    const config = <%- JSON.stringify(cytoscapeConfig)%>;
-    config.cytoscapeData.container = document.getElementById('diagram');
-    let cy = cytoscape(config.cytoscapeData);
-    let removedDoneElements = cy.collection();
-    let removedUserStories = cy.collection();
+    <button onclick="resetZoom()">Reset Zoom</button>
+    <label><input type="checkbox" checked onclick="toggleShowDone(this)"></input>Show Done</label>
+    <label><input type="checkbox" checked onclick="toggleShowUserStories(this)"></input>Show User Stories</label>
+    <div class="diagram" id="diagram"></div>
+  </div>
+</body>
+<script>
+  const config = <%- JSON.stringify(cytoscapeConfig)%>;
+  config.cytoscapeData.container = document.getElementById('diagram');
+  let cy = cytoscape(config.cytoscapeData);
+  let removedDoneElements = cy.collection();
+  let removedUserStories = cy.collection();
 
-    initLayout();
+  initLayout();
 
-    cy.on('tap', 'node', function(evt) {
-      const node = evt.target;
-      window.open(node.data('link'));
-    });
+  cy.on('tap', 'node', function (evt) {
+    const node = evt.target;
+    window.open(node.data('link'));
+  });
 
-    cy.on('mouseover', 'node', function(evt) {
-      document.body.style.cursor = 'pointer';
-      this.shift({x: 0, y: -1 });
-    });
+  cy.on('mouseover', 'node', function (evt) {
+    document.body.style.cursor = 'pointer';
+    this.shift({ x: 0, y: -1 });
+  });
 
-    cy.on('mouseout', 'node', function(evt) {
-      document.body.style.cursor = 'default';
-      this.shift({x: 0, y: 1 });
-    });
+  cy.on('mouseout', 'node', function (evt) {
+    document.body.style.cursor = 'default';
+    this.shift({ x: 0, y: 1 });
+  });
 
-    function initLayout() {      
-      const stories_done = config.epicData.stats.num_stories_done;
-      const total_stories = config.epicData.stats.num_stories_total;
-      const amount_done = stories_done / total_stories;
-      const percentFormatter = new Intl.NumberFormat("en-CA", {style: "percent", maximumFractionDigits: 1});
+  function initLayout() {
+    const stories_done = config.epicData.stats.num_stories_done;
+    const total_stories = config.epicData.stats.num_stories_total;
+    const amount_done = stories_done / total_stories;
+    const percentFormatter = new Intl.NumberFormat("en-CA", { style: "percent", maximumFractionDigits: 1 });
 
-      document.getElementById('title').innerHTML = config.epicData.name;
-      document.getElementById('description').innerHTML = config.epicData.description;
-      document.getElementById('tracker').innerHTML = `Amount complete: ${percentFormatter.format((amount_done))}`;
+    document.getElementById('title').innerHTML = config.epicData.name;
+    document.getElementById('description').innerHTML = config.epicData.description;
+    document.getElementById('tracker').innerHTML = `Amount complete: ${percentFormatter.format((amount_done))}`;
+  }
+
+  function resetZoom() {
+    cy.layout({ name: config.cytoscapeData.layout.name }).run();
+    cy.fit([], 30);
+  }
+
+  function toggleShowDone(e) {
+    if (e.checked) {
+      removedDoneElements.restore();
+    } else {
+      removedDoneElements = cy.filter(ele => ele.isNode() && ele.data().state === 'done').remove();
     }
 
-    function resetZoom() {
-      cy.layout({name: config.cytoscapeData.layout.name}).run();
-      cy.fit([], 30);
+    resetZoom();
+  }
+
+  function toggleShowUserStories(e) {
+    if (e.checked) {
+      removedUserStories.restore();
+    } else {
+      removedUserStories = cy.filter(ele => ele.isNode() && ele.data().type === 'user_story').remove();
     }
 
-    function toggleShowDone(e) {
-      if (e.checked) {
-        removedDoneElements.restore();
-      } else {
-        removedDoneElements = cy.filter(ele => ele.isNode() && ele.data().state === 'done').remove();
-      }
+    resetZoom();
+  }
+</script>
 
-      resetZoom();
-    }
-
-    function toggleShowUserStories(e) {
-      if (e.checked) {
-        removedUserStories.restore();
-      } else {
-        removedUserStories = cy.filter(ele => ele.isNode() && ele.data().type === 'user_story').remove();
-      }
-
-      resetZoom();
-    }
-  </script>
 </html>
