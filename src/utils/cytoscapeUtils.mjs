@@ -5,14 +5,12 @@ export function convertStoriesToCytoscapeNodesAndEdges(stories) {
   stories.forEach(story => {
     nodeMap.set(story.id, _makeNode(story));
 
-    if (story.blocked) {
-      story.story_links.forEach(link => {
-        const edge = _makeEdge(story, link);
-        if (edge) {
-          edgeMap.set(edge.data.id, edge);
-        }
-      });
-    }
+    story.story_links.forEach(link => {
+      const edge = _makeEdge(story, link);
+      if (edge) {
+        edgeMap.set(edge.data.id, edge);
+      }
+    });
   });
 
   const nodes = Array.from(nodeMap.values());
