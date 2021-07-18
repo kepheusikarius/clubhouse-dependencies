@@ -8,38 +8,13 @@ app.set('view engine', 'ejs');
 app.set('views', 'src/views');
 app.use(express.static('src/static'));
 
-const cytoscapeConfig = {
-  layout: {
-    name: 'dagre',
-  },
-  style: [ // the stylesheet for the graph
-    {
-      selector: 'node',
-      style: {
-        'background-color': '#063970',
-        'label': 'data(name)',
-        'text-wrap': 'wrap',
-        'text-max-width': 80,
-        'font-size': 10
-      }
-    },
-
-    {
-      selector: 'edge',
-      style: {
-        'width': 2,
-        'line-color': '#76b5c5',
-        'target-arrow-color': '#76b5c5',
-        'target-arrow-shape': 'triangle',
-        'curve-style': 'bezier'
-      }
-    },
-  ],
-};
-
 app.get('/', (req, res) => {
   res.render('index', {
-    cytoscapeConfig,
+    cytoscapeConfig: {
+      cytoscapeData: {
+        ...config.graph,
+      }
+    },
   });
 });
 
@@ -48,21 +23,19 @@ app.get('/epics/:epicId', async (req, res) => {
   const cytoscapeData = await getStoryDependenciesData(epicId);
   const epicData = await getClubhouseEpicData(epicId);
 
-  const config = {
-    cytoscapeData:{
+  const cytoscapeConfig = {
+    cytoscapeData: {
       elements: cytoscapeData,
-      ...cytoscapeConfig,
+      ...config.graph,
     },
-    epicData: epicData,
+    epicData,
   }
 
-  res.render('index', {
-    cytoscapeConfig: config,
-  });
+  res.render('index', { cytoscapeConfig, });
 });
 
 export function start() {
-    app.listen(config.port, () => {
-        console.log(`App listening on port ${config.port}!`)
-    });
+  app.listen(config.port, () => {
+    console.log(`App listening on port ${config.port}!`)
+  });
 }

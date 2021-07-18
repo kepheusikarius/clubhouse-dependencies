@@ -53,6 +53,8 @@
     let removedDoneElements = cy.collection();
     let removedUserStories = cy.collection();
 
+    initLayout();
+
     cy.on('tap', 'node', function(evt) {
       const node = evt.target;
       window.open(node.data('link'));
@@ -66,15 +68,21 @@
     cy.on('mouseout', 'node', function(evt) {
       document.body.style.cursor = 'default';
       this.shift({x: 0, y: 1 });
-    })
+    });
 
-    document.getElementById('title').innerHTML = config.epicData.name;
-    document.getElementById('description').innerHTML = config.epicData.description;
-    document.getElementById('tracker').innerHTML = 'Amount complete: '
-            + parseFloat((config.epicData.stats.num_stories_done/config.epicData.stats.num_stories_total) * 100).toFixed(2)
-            + '%';
+    function initLayout() {      
+      const stories_done = config.epicData.stats.num_stories_done;
+      const total_stories = config.epicData.stats.num_stories_total;
+      const amount_done = stories_done / total_stories;
+      const percentFormatter = new Intl.NumberFormat("en-CA", {style: "percent", maximumFractionDigits: 1});
+
+      document.getElementById('title').innerHTML = config.epicData.name;
+      document.getElementById('description').innerHTML = config.epicData.description;
+      document.getElementById('tracker').innerHTML = `Amount complete: ${percentFormatter.format((amount_done))}`;
+    }
 
     function resetZoom() {
+      cy.layout({name: config.cytoscapeData.layout.name}).run();
       cy.fit([], 30);
     }
 
@@ -85,7 +93,6 @@
         removedDoneElements = cy.filter(ele => ele.isNode() && ele.data().state === 'done').remove();
       }
 
-      cy.layout({name: 'dagre'}).run();
       resetZoom();
     }
 
@@ -96,7 +103,6 @@
         removedUserStories = cy.filter(ele => ele.isNode() && ele.data().type === 'user_story').remove();
       }
 
-      cy.layout({name: 'dagre'}).run();
       resetZoom();
     }
   </script>
