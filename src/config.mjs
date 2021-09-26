@@ -30,6 +30,6 @@ export let config = {
 
 export function loadConfig() {
   config['port'] = process.env.PORT || 3000;
-  config['ch_url'] = process.env.CLUBHOUSE_URL || 'https://api.clubhouse.io/api';
+  config['ch_url'] = process.env.CLUBHOUSE_URL || 'https://api.app.shortcut.com/api';
   config['ch_api_key'] = process.env.CLUBHOUSE_TOKEN;
 }

@@ -1,5 +1,6 @@
 import express from 'express';
 import { config } from './config.mjs';
+import { getClubhouseEpics } from './controllers/clubhouse-controller.mjs';
 import { getClubhouseEpicData } from './controllers/clubhouse-controller.mjs';
 import { getStoryDependenciesData } from './controllers/clubhouse-controller.mjs';
 const app = express();
@@ -8,14 +9,15 @@ app.set('view engine', 'hbs');
 app.set('views', 'src/views');
 app.use(express.static('src/static'));
 
-const cytoscapeConfig = {
+const defaultConfig = {
   cytoscapeData: {
     ...config.graph,
   },
 };
 
-app.get('/', (req, res) => {
-  res.render('index', { cytoscapeConfig: JSON.stringify(cytoscapeConfig) });
+app.get('/', async (req, res) => {
+  const epics = await getClubhouseEpics();
+  res.render('index', { epics });
 });
 
 app.get('/epics/:epicId', async (req, res) => {
@@ -31,7 +33,7 @@ app.get('/epics/:epicId', async (req, res) => {
     epicData,
   };
 
-  res.render('index', { cytoscapeConfig: JSON.stringify(cytoscapeConfig) });
+  res.render('epic', { cytoscapeConfig: JSON.stringify(cytoscapeConfig) });
 });
 
 export function start() {
