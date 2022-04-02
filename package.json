@@ -1,7 +1,7 @@
 {
-  "name": "clubhouse-dependencies",
+  "name": "shortcut-dependencies",
   "version": "1.0.0",
-  "description": "App for creating dependency visualizations for Clubhouse epics",
+  "description": "App for creating dependency visualizations for Shortcut epics",
   "main": "src/index.js",
   "type": "module",
   "scripts": {
