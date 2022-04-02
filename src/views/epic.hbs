@@ -18,15 +18,11 @@
     <h2>Legend</h2>
     <ul class="legend">
       <li class="list">
-        <p class="option">User Story</p>
-        <div class="circle purple" />
-      </li>
-      <li class="list">
         <p class="option">Backlog/Ready</p>
         <div class="circle darkblue" />
       </li>
       <li class="list">
-        <p class="option">Blocked</p>
+        <p class="option">Blocker</p>
         <div class="circle red" />
       </li>
       <li class="list">
@@ -42,12 +38,11 @@
   <div class="rightColumn">
     <div id="details">
       <h1 id="title"></h1>
-      <p id="description"></p>
+      <pre id="description"></pre>
       <p id="tracker"></p>
     </div>
     <button onclick="resetZoom()">Reset Zoom</button>
     <label><input type="checkbox" checked onclick="toggleShowDone(this)"></input>Show Done</label>
-    <label><input type="checkbox" checked onclick="toggleShowUserStories(this)"></input>Show User Stories</label>
     <div class="diagram" id="diagram"></div>
   </div>
 </body>
@@ -101,15 +96,6 @@
     resetZoom();
   }
 
-  function toggleShowUserStories(e) {
-    if (e.checked) {
-      removedUserStories.restore();
-    } else {
-      removedUserStories = cy.filter(ele => ele.isNode() && ele.data().type === 'user_story').remove();
-    }
-
-    resetZoom();
-  }
 </script>
 
 </html>

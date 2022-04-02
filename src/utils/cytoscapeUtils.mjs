@@ -34,8 +34,6 @@ function _makeNode(story) {
     state = 'started';
   } else if (story.blocker) {
     colour = 'red';
-  } else if (story.project_id === 36662) {
-    colour = 'purple';
   }
 
   return {
