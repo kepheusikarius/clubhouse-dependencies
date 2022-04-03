@@ -1,5 +1,6 @@
 body {
   display: flex;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .leftColumn {
@@ -11,7 +12,7 @@ body {
 }
 
 .legend {
-  width: 20%;
+  font-size: smaller;
 }
 
 .ul {
@@ -20,25 +21,18 @@ body {
   padding: 0;
 }
 
-.list {
+.legend-entry {
   list-style-type: none;
-  margin: 0;
+  margin: 10px 0 0 0;
   padding: 0;
-  width: 100%;
 }
 
 .circle {
-  width: 25px;
-  height: 25px;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
-  background-color: green;
   float: left;
-  margin-left: 0.5em;
-}
-
-.option {
-  float: left;
-  width: 10vw;
+  margin-right: 5px;
 }
 
 .green {
@@ -57,12 +51,14 @@ body {
   background-color: #063970;
 }
 
-.purple {
-  background-color: purple;
-}
-
 .diagram {
   height: 80vh;
   display: block;
   border: 1px black solid;
+}
+
+.epic_details {
+  font-size: smaller;
+  line-height: 0.5rem;
+  padding-left: 1rem;
 }

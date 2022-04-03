@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "lint": "eslint 'src/**/*.js' --fix --ignore-pattern node_modules/",
-    "start": "nodemon --watch src/**/*"
+    "start": "nodemon -e js,mjs,hbs,css"
   },
   "dependencies": {
     "axios": "^0.21.1",

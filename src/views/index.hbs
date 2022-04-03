@@ -11,14 +11,15 @@
 
 <body>
   <div class="epicSelector">
+    <label>Select the Epic to view</label>
+    <input id="epicDropdown" list="epics" onchange="onEpicSelected()" />
     <datalist id="epics">
       {{#each epics}}
         <option value={{id}}>{{name}}</option>
       {{/each}}
     </datalist>
 
-    <input id="epicDropdown" list="epics" class="epicDropdown" onchange="onEpicSelected()" />
-    <button id="epicNavButon" onclick="openEpic()" disabled="false">Go!</button>
+    <button id="epicNavButton" class="btn btn-primary" onclick="openEpic()" disabled="true">Go!</button>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
@@ -27,12 +28,12 @@
 <script>
   function onEpicSelected() {
     const epicId = document.getElementById('epicDropdown').value;
-    document.getElementById('epicNavButon').disabled = !epicId;
+    document.getElementById('epicNavButton').disabled = !epicId;
   }
 
   function openEpic() {
     const epicId = document.getElementById('epicDropdown').value;
-    location.href = `epics/${epicId}`;
+    location.href = `/epics/${epicId}`;
   }
 </script>
 

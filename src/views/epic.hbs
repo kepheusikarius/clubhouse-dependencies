@@ -4,42 +4,49 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Index page</title>
+  <title>Epic</title>
 </head>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <link rel="stylesheet" type="text/css" href="/style.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.18.2/cytoscape.min.js"
   integrity="sha512-CBGCXtszkG5rYlQSTNUzk54/731Kz28WPk2uT1GCPCqgfVRJ2v514vzzf16HuGX9WVtE7JLqRuAERNAzFZ9Hpw=="
   crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dagre/0.8.5/dagre.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/cytoscape-dagre@2.2.2/cytoscape-dagre.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/linkifyjs@3.0.5/dist/linkify.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/linkify-html@3.0.5/dist/linkify-html.min.js"></script>
 
 <body>
-  <div class="leftColumn legend">
-    <h2>Legend</h2>
+  <div class="leftColumn">
+    <h3>Legend</h3>
     <ul class="legend">
-      <li class="list">
-        <p class="option">Backlog/Ready</p>
-        <div class="circle darkblue" />
+      <li class="legend-entry">
+        <span class="option">Backlog/Ready</span>
+        <span class="circle darkblue" />
       </li>
-      <li class="list">
-        <p class="option">Blocker</p>
-        <div class="circle red" />
+      <li class="legend-entry">
+        <span class="option">Blocker</span>
+        <span class="circle red" />
       </li>
-      <li class="list">
-        <p class="option">In Progress</p>
-        <div class="circle blue" />
+      <li class="legend-entry">
+        <span class="option">In Progress</span>
+        <span class="circle blue" />
       </li>
-      <li class="list">
-        <p class="option">Done</p>
-        <div class="circle green" />
+      <li class="legend-entry">
+        <span class="option">Done</span>
+        <span class="circle green" />
       </li>
     </ul>
   </div>
   <div class="rightColumn">
-    <div id="details">
-      <h1 id="title"></h1>
-      <pre id="description"></pre>
-      <p id="tracker"></p>
+    <h1 id="title"></h1>
+    <div id="details" class="epic_details">
+      <p id="description"></p>
+      <label class="form-label">Amount done:
+        <div class="progress" style="width: 100px;">
+          <div id="amount_done" class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+      </label>
     </div>
     <button onclick="resetZoom()">Reset Zoom</button>
     <label><input type="checkbox" checked onclick="toggleShowDone(this)"></input>Show Done</label>
@@ -74,11 +81,24 @@
     const stories_done = config.epicData.stats.num_stories_done;
     const total_stories = config.epicData.stats.num_stories_total;
     const amount_done = stories_done / total_stories;
-    const percentFormatter = new Intl.NumberFormat("en-CA", { style: "percent", maximumFractionDigits: 1 });
 
+    window.document.title = config.epicData.name;
     document.getElementById('title').innerHTML = config.epicData.name;
-    document.getElementById('description').innerHTML = config.epicData.description;
-    document.getElementById('tracker').innerHTML = `Amount complete: ${percentFormatter.format((amount_done))}`;
+    document.getElementById('description').innerHTML = renderDescription(config.epicData.description);
+    document.getElementById('amount_done').setAttribute('aria-valuenow', amount_done * 100);
+    document.getElementById('amount_done').style.width = `${amount_done * 100}%`;
+    document.getElementById('amount_done').innerHTML = formatPercentage(amount_done);
+  }
+
+  function renderDescription(description) {
+    let temp = description.replaceAll("\n", "<br />");
+    temp = linkifyHtml(temp, {defaultProtocol: "https"});
+    return temp;
+  }
+
+  function formatPercentage(value) {
+    const percentFormatter = new Intl.NumberFormat("en-CA", { style: "percent", maximumFractionDigits: 1 });
+    return percentFormatter.format(value);
   }
 
   function resetZoom() {

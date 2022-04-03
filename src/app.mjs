@@ -8,7 +8,12 @@ app.set('views', 'src/views');
 app.use(express.static('src/static'));
 
 app.get('/', async (req, res) => {
-  const epics = await getEpics();
+  var epics = await getEpics();
+  epics.sort((a, b) => {
+    if (a.id < b.id) return -1;
+    if (a.id > b.id) return 1;
+    return 0;
+  });
   res.render('index', { epics });
 });
 
